@@ -8,6 +8,9 @@ var
     moment = require('moment');
 
 module.exports = {
+    conn: function (callback) {
+        callback();
+    },
     in: function (query) {
         pool.getConnection(function (err, connection) {
             connection.query('insert into web_queue set ? ', query, function (err, result) {
@@ -45,6 +48,7 @@ COLLATE='utf8_general_ci';\
             connection.query(sql.join("\r\n"), function (err, result) {
                 if (err) {
                     console.log(err);
+                    process.exit();
                 } else {
                     console.log(result);
                 }

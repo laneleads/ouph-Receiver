@@ -8,7 +8,8 @@ var
 var
     config = require(path.join(__dirname, 'config')),
     plugins = [],
-    files = fs.readdirSync(path.join(__dirname, 'plugin'));
+    files = fs.readdirSync(path.join(__dirname, 'plugin')),
+    db = require(path.join(__dirname, 'db', config.queue.type + ".js"));
 for (var fn in files) {
     var tmp = require(path.join(__dirname, 'plugin', files[fn]));
     if (tmp.url && tmp.v) {
@@ -55,8 +56,10 @@ var server = http.createServer(function (req, res) {
 
 });
 
-
-
-server.listen(config.port, function () {
-    console.log('server start on: :' + config.port);
+db.conn(function () {
+    server.listen(config.port, function () {
+        console.log('server start on: :' + config.port);
+    });
 });
+
+

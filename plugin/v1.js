@@ -42,9 +42,9 @@ function submit(q, ua, ip) {
     var ct = moment.utc().format('YYYY-MM-DD HH:mm:ss');
     var query = {
         query: JSON.stringify(param),
-        ua: ua,
-        ip: ip,
-        visittime: ct
+        ua: ua.toString(),
+        ip: ip.toString(),
+        visittime: ct.toString()
     };
     queue.in(query);
 }
