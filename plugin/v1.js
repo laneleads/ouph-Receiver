@@ -41,7 +41,7 @@ function submit(q, ua, ip) {
     var param = querystring.parse(q);
     var ct = moment.utc().format('YYYY-MM-DD HH:mm:ss');
     var query = {
-        query: JSON.stringify(param),
+        query: param,//JSON.stringify(param),
         ua: ua.toString(),
         ip: ip.toString(),
         visittime: ct.toString()

@@ -13,6 +13,7 @@ module.exports = {
     },
     in: function (query) {
         pool.getConnection(function (err, connection) {
+            query.query=JSON.stringify(query.query);
             connection.query('insert into web_queue set ? ', query, function (err, result) {
                 var d = moment.utc().format('YYYY-MM-DD HH:mm:ss');
                 console.log(d);
