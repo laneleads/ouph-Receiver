@@ -1,6 +1,6 @@
 {
   "name": "receiver",
-  "version": "1.0.2016.1005",
+  "version": "1.0.2016.1124",
   "description": "ouph http receiver",
   "main": "app.js",
   "scripts": {
