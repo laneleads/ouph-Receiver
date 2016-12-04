@@ -57,8 +57,8 @@ var server = http.createServer(function (req, res) {
 });
 
 db.conn(function () {
-    server.listen(config.port, function () {
-        console.log('server start on: :' + config.port);
+    server.listen(config.port, config.host, function () {
+        console.log('server start on ' + config.host + ":" + config.port);
     });
 });
 
