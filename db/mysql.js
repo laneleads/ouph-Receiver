@@ -12,20 +12,17 @@ module.exports = {
         callback();
     },
     in: function (query) {
-        pool.getConnection(function (err, connection) {
-            query.query=JSON.stringify(query.query);
-            connection.query('insert into web_queue set ? ', query, function (err, result) {
-                var d = moment.utc().format('YYYY-MM-DD HH:mm:ss');
-                console.log(d);
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(result.insertId);
-                }
-                connection.release();
-
-            });
+        query.query = JSON.stringify(query.query);
+        pool.query('insert into web_queue set ? ', query, function (err, result) {
+            var d = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+            console.log(d);
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result.insertId);
+            }
         });
+
     },
     init: function (callback) {
 
@@ -40,23 +37,17 @@ module.exports = {
 )\
 COLLATE='utf8_general_ci';\
 ");
-
-        pool.getConnection(function (err, connection) {
+        pool.query(sql.join("\r\n"), function (err, result) {
             if (err) {
                 console.log(err);
                 process.exit();
+            } else {
+                console.log(result);
             }
-            connection.query(sql.join("\r\n"), function (err, result) {
-                if (err) {
-                    console.log(err);
-                    process.exit();
-                } else {
-                    console.log(result);
-                }
-                callback();
+            callback();
 
-            });
         });
+
 
     }
 
